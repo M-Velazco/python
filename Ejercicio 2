@@ -1,0 +1,68 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-Velazco/python/blob/main/Ejercicio%202\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "opcion1='hi, world'\n",
+        "opcion2= 'hola, mundo'\n",
+        "print( 'seleccione la opcion deseada' )\n",
+        "\n",
+        "print('1. '+ opcion1)\n",
+        "print('2. '+ opcion2)\n",
+        "\n",
+        "resultado = input('ingrese la opcion elegida: ')\n",
+        "if resultado=='1':\n",
+        "    print(opcion1)\n",
+        "elif resultado=='2':\n",
+        "    print(opcion2)\n",
+        "else:\n",
+        "    print('opcion invalida')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "QB2HOJJu3NsC",
+        "outputId": "d4d47d78-4739-42fb-bd6c-0ad983cfface"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "seleccione la opcion deseada\n",
+            "1. hi, world\n",
+            "2. hola, mundo\n",
+            "ingrese la opcion elegida: 2\n",
+            "hola, mundo\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Te damos la bienvenida a Colaboratory",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
