@@ -1,0 +1,93 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-Velazco/python/blob/main/ejercicio%20vehiculo\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "En este ejercicio vais a crear la clase Vehículo la cual tendrá los siguientes atributos:\n",
+        "\n",
+        "Color\n",
+        "\n",
+        "Ruedas\n",
+        "\n",
+        "Puertas\n",
+        "\n",
+        "Por otro lado crearéis la clase Coche la cual heredará de Vehículo y tendrá los siguientes atributos:\n",
+        "\n",
+        "Velocidad\n",
+        "\n",
+        "Cilindrada\n",
+        "\n",
+        "Por último, tendrás que crear un objeto de la clase Coche y mostrarlo por consola."
+      ],
+      "metadata": {
+        "id": "j52bhCaM3Kpd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class Vehiculo():\n",
+        "    def __init__(self, color, ruedas, puertas):\n",
+        "        self.color = color\n",
+        "        self.ruedas = ruedas\n",
+        "        self.puertas = puertas \n",
+        "\n",
+        "class Coche(Vehiculo):\n",
+        "    def __init__(self,color, ruedas, puertas, velocidad, cilindrada):\n",
+        "        self.color = color\n",
+        "        self.ruedas = ruedas\n",
+        "        self.puertas = puertas \n",
+        "        self.velocidad = velocidad\n",
+        "        self.cilindrada = cilindrada\n",
+        "    def __str__(self):\n",
+        "        return \"Color {}, {} ruedas, {} puertas, {} km/h, {} cc\".format(self.color, self.ruedas, self.puertas, self.velocidad, self.cilindrada)\n",
+        "\n",
+        "\n",
+        "\n",
+        "x = Coche(\"Blanco\", 4, 5, 120, 1500)\n",
+        "print(x)"
+      ],
+      "metadata": {
+        "id": "YNlruDob3LuO",
+        "outputId": "9d2a10d3-a0cf-4ee4-ba59-dda91ae87e9f",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Color Blanco, 4 ruedas, 5 puertas, 120 km/h, 1500 cc\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Te damos la bienvenida a Colaboratory",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
