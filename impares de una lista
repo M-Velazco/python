@@ -1,0 +1,96 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-Velazco/python/blob/main/impares%20de%20una%20lista\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "En este segundo ejercicio, tenéis que crear una aplicación que obtendrá los elementos impares de una lista pasada por parámetro con filter y realizará una suma de todos estos elementos obtenidos mediante reduce"
+      ],
+      "metadata": {
+        "id": "rYjqtt4y93yd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Importación de funcion para generar valores enteros pertenecientes a un intervalo\n",
+        "from random import randrange\n",
+        "# Importación de la funcion reduce\n",
+        "from functools import reduce\n",
+        "\n",
+        "\n",
+        "class GeneradorListaValores:\n",
+        "    @staticmethod\n",
+        "    def generar(cantidad, min, max):\n",
+        "        valores = set()\n",
+        "        if cantidad < 1:\n",
+        "            raise ValueError(\"cantidad tiene que ser mayor que 1\")\n",
+        "        if max <= min:\n",
+        "            raise ValueError(\"min tiene que ser mayor o igual a max\")\n",
+        "        while len(valores) < cantidad:\n",
+        "            valor = randrange(min, max+1)\n",
+        "            valores.add(valor)\n",
+        "\n",
+        "        return sorted(valores)\n",
+        "\n",
+        "\n",
+        "class Test:\n",
+        "    def main():\n",
+        "        valores = GeneradorListaValores.generar(20, 10, 150)\n",
+        "        print(f'Lista de valores:\\n{valores}')\n",
+        "        valores = list(filter(lambda x: x % 2 != 0, valores))\n",
+        "        valores.sort()\n",
+        "        print(f'Valores impares:\\n{valores}')\n",
+        "        print(f'Suma:{reduce(lambda a,b:a+b,valores)}')\n",
+        "\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    Test.main()"
+      ],
+      "metadata": {
+        "id": "8_dyjf8l_zn0",
+        "outputId": "0d090e07-f62c-42d6-d981-158d7a061da3",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 23,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Lista de valores:\n",
+            "[11, 14, 19, 20, 41, 55, 61, 62, 64, 67, 74, 77, 80, 97, 110, 112, 117, 124, 127, 131]\n",
+            "Valores impares:\n",
+            "[11, 19, 41, 55, 61, 67, 77, 97, 117, 127, 131]\n",
+            "Suma:803\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Te damos la bienvenida a Colaboratory",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
