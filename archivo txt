@@ -1,0 +1,93 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-Velazco/python/blob/main/archivo%20txt\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "En este ejercicio, tendréis que crear un archivo py donde creéis un archivo txt, lo abráis y escribáis dentro del archivo. Para ello, tendréis que acceder dos veces al archivo creado."
+      ],
+      "metadata": {
+        "id": "YQ18QNDX4VMP"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class SalidaTxt:\n",
+        "    def __init__(self, path) -> None:\n",
+        "        self.__path = path\n",
+        "\n",
+        "    def escribir(self, texto):\n",
+        "        f = open(self.__path, 'wt')\n",
+        "        f.write(texto)\n",
+        "        f.close()\n",
+        "\n",
+        "    def leer(selft):\n",
+        "        f = open(selft.__path, 'rt')\n",
+        "        texto = f.read()\n",
+        "        f.close()\n",
+        "        return texto\n",
+        "\n",
+        "\n",
+        "class Escritor:\n",
+        "\n",
+        "    def main():\n",
+        "        libro = SalidaTxt('libro.txt')\n",
+        "        oracion = \"seguir adelante empieza por ti mismo, por creértelo y recordártelo especialmente en los momentos más delicados. Cuando comiences a pensar que el reto te viene grande o dudas en tus capacidades para conseguirlo, intenta repetirte estas frases para darte un empujoncito.\"\n",
+        "        print(f'Texto a escribir \"{oracion}\"\\n')\n",
+        "        libro.escribir(oracion)\n",
+        "        print(f'Texto leido: \"{libro.leer()}\"\\n')\n",
+        "        print(\n",
+        "            f'Ambos textos son: {\"IGUALES\" if oracion==libro.leer() else \"DIFERENTES\"}')\n",
+        "\n",
+        "\n",
+        "if __name__ == '__main__':\n",
+        "    Escritor.main()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HzMGrbBT5fzd",
+        "outputId": "c752b348-ea15-4700-9c9d-22eb2415ff2d"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Texto a escribir \"seguir adelante empieza por ti mismo, por creértelo y recordártelo especialmente en los momentos más delicados. Cuando comiences a pensar que el reto te viene grande o dudas en tus capacidades para conseguirlo, intenta repetirte estas frases para darte un empujoncito.\"\n",
+            "\n",
+            "Texto leido: \"seguir adelante empieza por ti mismo, por creértelo y recordártelo especialmente en los momentos más delicados. Cuando comiences a pensar que el reto te viene grande o dudas en tus capacidades para conseguirlo, intenta repetirte estas frases para darte un empujoncito.\"\n",
+            "\n",
+            "Ambos textos son: IGUALES\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Te damos la bienvenida a Colaboratory",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
