@@ -1,0 +1,58 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-Velazco/python/blob/main/operaciones\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "En este ejercicio tendréis que crear un módulo que contenga las operaciones básicas de una calculadora: sumar, restar, multiplicar y dividir.\n",
+        "\n",
+        "Este módulo lo importaréis a un archivo python y llamaréis a las funciones creadas. Los resultados tenéis que mostrarlos por consola."
+      ],
+      "metadata": {
+        "id": "YQ18QNDX4VMP"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def suma(a,b):\n",
+        "    print(\"resultado de la suma es: \", a+b)\n",
+        "def resta(a,b):\n",
+        "    print(\"resultado de la resta es: \", a-b)\n",
+        "def multiplicacion(a,b):\n",
+        "    print(\"resultado de la multiplicacion es: \", a*b)\n",
+        "def division(a,b):\n",
+        "    print(\"resultado de la division es: \", a/b)\n",
+        "        "
+      ],
+      "metadata": {
+        "id": "HzMGrbBT5fzd"
+      },
+      "execution_count": 8,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Te damos la bienvenida a Colaboratory",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
