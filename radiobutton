@@ -1,0 +1,168 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-Velazco/python/blob/main/radiobutton\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "En este ejercicio tenéis que crear una lista de RadioButton que muestre la opción que se ha seleccionado y que contenga un botón de reinicio para que deje todo como al principio.\n",
+        "\n",
+        "Al principio no tiene que haber una opción seleccionada."
+      ],
+      "metadata": {
+        "id": "rYjqtt4y93yd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from tkinter import Tk, ttk, StringVar, Text\n",
+        "# Modulo de control Tex ReadOnly\n",
+        "from readOnlyTex import ReadOnlyTex\n",
+        "\n",
+        "# Configuración de Ventana\n",
+        "window = Tk()\n",
+        "window.title(\"RadioButtons\")\n",
+        "window.geometry(\"400x310\")\n",
+        "window.resizable(0, 0)\n",
+        "\n",
+        "# Configuración de grid\n",
+        "window.columnconfigure(0, weight=1)\n",
+        "window.columnconfigure(1, weight=3)\n",
+        "\n",
+        "# Label\n",
+        "label_titulo_lista = ttk.Label(\n",
+        "    window, text=\"TU LENGUAJE FAVORITO:\", foreground=\"blue\")\n",
+        "label_titulo_lista.grid(column=0, row=0, sticky='w', columnspan=3, padx=5)\n",
+        "\n",
+        "# Variable lenguaje seleccionado\n",
+        "lenguaje = StringVar()\n",
+        "\n",
+        "# Descripción del lenguaje seleccionado\n",
+        "text_lenguaje = ReadOnlyTex(window, height=15, width=30,\n",
+        "                            font=('Times New Roman', 10, 'bold'), background='#DAF7A6')\n",
+        "text_lenguaje.grid(column=2, row=1, rowspan=7, sticky='e', padx=10, pady=5)\n",
+        "\n",
+        "\n",
+        "# Función seleccionar lenguaje\n",
+        "\n",
+        "\n",
+        "def seleccionarLenguaje():\n",
+        "    descripcion = {'python': '- Interpretado\\n- Facil de utilizar\\n- Tipado dinamico y fuerte\\n- De alto nivel\\n- Orientado a objetos,estructurado,multiparadigma',\n",
+        "                   'java': '- Interpretado\\n- Facil de utilizar\\n- Tipado estatico y fuerte\\n- De alto nivel\\n- Orientado a objetos, multiparadigma',\n",
+        "                   'c': '- Compilado\\n- Tipado estatico y fuerte\\n- De nivel medio\\n- Estructurado',\n",
+        "                   'c++': '- Compilado\\n- Tipado estatico y fuerte\\n- De alto nivel\\n- Orientado a objetos,estructurado,multiparadigma',\n",
+        "                   'c#': '- Compilado\\n- Tipado estatico y fuerte\\n- De alto nivel\\n- Orientado a objetos,estructurado,multiparadigma',\n",
+        "                   'javascript': '- Interpretado\\n- Tipado dinamico y debil\\n- De alto nivel\\n- Orientado a objetos,estructurado,multiparadigma',\n",
+        "                   'otro': 'Seguro que te gusta programar?'}\n",
+        "\n",
+        "    text_lenguaje.set_Text(descripcion[lenguaje.get()])\n",
+        "\n",
+        "\n",
+        "# Lista de RadioButtons\n",
+        "\n",
+        "\n",
+        "radio_button_python = ttk.Radiobutton(window,\n",
+        "                                      text=\"python\", variable=lenguaje, value=\"python\", command=seleccionarLenguaje)\n",
+        "radio_button_python.grid(column=1, row=1, padx=5, pady=5, sticky='w')\n",
+        "\n",
+        "radio_button_javascript = ttk.Radiobutton(window,\n",
+        "                                          text=\"javascript\", variable=lenguaje, value=\"javascript\", command=seleccionarLenguaje)\n",
+        "radio_button_javascript.grid(column=1, row=2, padx=5, pady=5, sticky='w')\n",
+        "\n",
+        "radio_button_cmas = ttk.Radiobutton(window,\n",
+        "                                    text=\"c++\", variable=lenguaje, value=\"c++\", command=seleccionarLenguaje)\n",
+        "radio_button_cmas.grid(column=1, row=3, padx=5, pady=5, sticky='w')\n",
+        "\n",
+        "radio_button_csharp = ttk.Radiobutton(window,\n",
+        "                                      text=\"c#\", variable=lenguaje, value=\"c#\", command=seleccionarLenguaje)\n",
+        "radio_button_csharp.grid(column=1, row=4, padx=5, pady=5, sticky='w')\n",
+        "\n",
+        "radio_button_c = ttk.Radiobutton(window,\n",
+        "                                 text=\"c\", variable=lenguaje, value=\"c\", command=seleccionarLenguaje)\n",
+        "radio_button_c.grid(column=1, row=5, padx=5, pady=5, sticky='w')\n",
+        "\n",
+        "radio_button_java = ttk.Radiobutton(window,\n",
+        "                                    text=\"java\", variable=lenguaje, value=\"java\", command=seleccionarLenguaje)\n",
+        "radio_button_java.grid(column=1, row=6, padx=5, pady=5, sticky='w')\n",
+        "\n",
+        "radio_button_otro = ttk.Radiobutton(window,\n",
+        "                                    text=\"otro\", variable=lenguaje, value=\"otro\", command=seleccionarLenguaje)\n",
+        "radio_button_otro.grid(column=1, row=7, padx=5, pady=5, sticky='w')\n",
+        "\n",
+        "\n",
+        "# Funcion reiniciar radiobuttons\n",
+        "def reiniciar():\n",
+        "    lenguaje.set(\"\")\n",
+        "    text_lenguaje.set_Text(\"\")\n",
+        "\n",
+        "\n",
+        "# Boton reiniciar\n",
+        "style_button = ttk.Style()\n",
+        "style_button.configure('btnReiniciar.TButton',\n",
+        "                       background='blue')\n",
+        "button_reiniciar = ttk.Button(\n",
+        "    window,  text=\"REINICIAR\", style='btnReiniciar.TButton', command=reiniciar)\n",
+        "button_reiniciar.grid(column=2, row=8, sticky='s', pady=10)\n",
+        "\n",
+        "\n",
+        "window.mainloop()"
+      ],
+      "metadata": {
+        "id": "h3BtMx11Aefz",
+        "outputId": "e3ead899-347f-43ee-9379-e67646cbcda3",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 373
+        }
+      },
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-30-5d79c5266347>\u001b[0m in \u001b[0;36m<cell line: 3>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mtkinter\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mTk\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mttk\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mStringVar\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mText\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;31m# Modulo de control Tex ReadOnly\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mreadOnlyTex\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mReadOnlyTex\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      4\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;31m# Configuración de Ventana\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'readOnlyTex'",
+            "",
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0;32m\nNOTE: If your import is failing due to a missing package, you can\nmanually install dependencies using either !pip or !apt.\n\nTo view examples of installing some common dependencies, click the\n\"Open Examples\" button below.\n\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n"
+          ],
+          "errorDetails": {
+            "actions": [
+              {
+                "action": "open_url",
+                "actionText": "Open Examples",
+                "url": "/notebooks/snippets/importing_libraries.ipynb"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Te damos la bienvenida a Colaboratory",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
