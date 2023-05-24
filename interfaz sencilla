@@ -1,0 +1,184 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/M-Velazco/python/blob/main/interfaz%20sencilla\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "En este segundo ejercicio, tendréis que crear una interfaz sencilla la cual debe de contener una lista de elementos seleccionables, también debe de tener un label con el texto que queráis."
+      ],
+      "metadata": {
+        "id": "rYjqtt4y93yd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from tkinter import ttk, Tk, BooleanVar, messagebox\n",
+        "\n",
+        "from random import randint\n",
+        "from PIL import Image, ImageTk\n",
+        "from urllib.request import urlopen\n",
+        "from io import BytesIO\n",
+        "import ssl\n",
+        "\n",
+        "\n",
+        "# Configuración de la ventana\n",
+        "window = Tk()\n",
+        "window.title(\"ELEMENTOS SELECCIONABLES\")\n",
+        "window.geometry(\"470x470\")\n",
+        "window.resizable(0, 0)\n",
+        "\n",
+        "# Configuración de grid\n",
+        "window.columnconfigure(0, weight=1)\n",
+        "window.columnconfigure(1, weight=3)\n",
+        "\n",
+        "\n",
+        "# ComboBox\n",
+        "label_combobox = ttk.Label(window, text=\"ComboBox \")\n",
+        "label_combobox.grid(column=0, row=0, sticky='w', padx=10)\n",
+        "\n",
+        "label_value_combobox = ttk.Label(window, text=\"\")\n",
+        "label_value_combobox.config(width=15)\n",
+        "label_value_combobox.grid(column=2, row=0, sticky=\"e\", padx=20)\n",
+        "\n",
+        "\n",
+        "def selection_change(event):\n",
+        "    if comboBox.get() != \"\":\n",
+        "        label_value_combobox.config(background='#56A556')\n",
+        "    else:\n",
+        "        label_value_combobox.config(background='#F1F1F1')\n",
+        "    label_value_combobox.config(text=comboBox.get())\n",
+        "\n",
+        "\n",
+        "comboBox = ttk.Combobox(\n",
+        "    window, values=[\"\", \"Opcion 1\", \"Opcion 2\", \"Opcion 3\"])\n",
+        "comboBox.grid(row=0, column=1, sticky=\"w\")\n",
+        "comboBox.bind('<<ComboboxSelected>>', selection_change)\n",
+        "\n",
+        "# Titulo arbol\n",
+        "label_titulo_tree = ttk.Label(\n",
+        "    window, text=\"ARBOL DE IMAGENES\", justify=\"center\",  font=('Times New Roman', 10, 'bold'), foreground='blue')\n",
+        "label_titulo_tree.grid(column=0, row=1, columnspan=3,  pady=5)\n",
+        "\n",
+        "# TreeView\n",
+        "treeview_imagenes = ttk.Treeview(window)\n",
+        "treeview_imagenes.config(height=15)\n",
+        "treeview_imagenes.grid(column=0, row=2, columnspan=2,\n",
+        "                       pady=10, padx=10, sticky='w')\n",
+        "\n",
+        "# Items\n",
+        "for i in range(0, 3):\n",
+        "    hijos = randint(1, 4)\n",
+        "    item = treeview_imagenes.insert(\"\", 'end', text=f'Elemento {i+1}')\n",
+        "    while hijos > 0:\n",
+        "        treeview_imagenes.insert(\n",
+        "            item, 0, text=f'Hijo {hijos}', tags=f'https://picsum.photos/id/{randint(10,300)}/200/320')\n",
+        "        hijos -= 1\n",
+        "\n",
+        "treeview_imagenes_label = ttk.Label()\n",
+        "treeview_imagenes_label.grid(column=2, row=2, sticky='e', padx=10)\n",
+        "\n",
+        "context = ssl._create_unverified_context()\n",
+        "\n",
+        "# Funcion que obtiene la imagen al selecccionar un elemento hoja del arbol\n",
+        "\n",
+        "\n",
+        "def ver(event):\n",
+        "    item = treeview_imagenes.focus()\n",
+        "    if \"Hijo\" in treeview_imagenes.item(item)[\"text\"]:\n",
+        "        global photo\n",
+        "        URL = treeview_imagenes.item(item)[\"tags\"][0]\n",
+        "        u = urlopen(URL, context=context)\n",
+        "        raw_data = u.read()\n",
+        "        u.close()\n",
+        "\n",
+        "        im = Image.open(BytesIO(raw_data))\n",
+        "\n",
+        "        photo = ImageTk.PhotoImage(im)\n",
+        "        treeview_imagenes_label.config(image=photo)\n",
+        "\n",
+        "\n",
+        "treeview_imagenes.bind('<<TreeviewSelect>>', ver)\n",
+        "\n",
+        "# Checkbox\n",
+        "checked = BooleanVar(value=False)\n",
+        "checkbutton_condiciones = ttk.Checkbutton(\n",
+        "    window, text=\"Acepta terminos y condiciones\", variable=checked)\n",
+        "checkbutton_condiciones.grid(\n",
+        "    column=0, row=3, sticky=\"w\", padx=10, columnspan=3)\n",
+        "\n",
+        "\n",
+        "# Boton Aceptar\n",
+        "\n",
+        "\n",
+        "def click():\n",
+        "    if not checked.get():\n",
+        "        messagebox.showerror(\n",
+        "            message=\"Es necesario que acepte los terminos y condiciones\", title=\"Terminos y condiciones\")\n",
+        "    else:\n",
+        "        messagebox.showinfo(\n",
+        "            message=\"Gran elección, gracias!!!!\", title=\"Confirmación\")\n",
+        "\n",
+        "\n",
+        "button_aceptar = ttk.Button(\n",
+        "    window, text=\"Aceptar\", command=click, width=10)\n",
+        "button_aceptar.grid(column=2, row=4, sticky='e', pady=15, padx=85)\n",
+        "\n",
+        "\n",
+        "# Boton Salir\n",
+        "button_salir = ttk.Button(window, text=\"Salir\", command=exit, width=10)\n",
+        "button_salir.grid(column=2, row=4, sticky='e', pady=15, padx=10)\n",
+        "\n",
+        "\n",
+        "# Hilo de ejecución\n",
+        "window.mainloop()"
+      ],
+      "metadata": {
+        "id": "-HxGVFYWBy3C",
+        "outputId": "50115758-1a2f-4ca4-e411-346454c49ff8",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 356
+        }
+      },
+      "execution_count": 36,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "TclError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mTclError\u001b[0m                                  Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-36-5c15551a8b6d>\u001b[0m in \u001b[0;36m<cell line: 11>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      9\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     10\u001b[0m \u001b[0;31m# Configuración de la ventana\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 11\u001b[0;31m \u001b[0mwindow\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mTk\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     12\u001b[0m \u001b[0mwindow\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtitle\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"ELEMENTOS SELECCIONABLES\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     13\u001b[0m \u001b[0mwindow\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mgeometry\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"470x470\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/lib/python3.10/tkinter/__init__.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, screenName, baseName, className, useTk, sync, use)\u001b[0m\n\u001b[1;32m   2300\u001b[0m                 \u001b[0mbaseName\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mbaseName\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0mext\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2301\u001b[0m         \u001b[0minteractive\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;32mFalse\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2302\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtk\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0m_tkinter\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcreate\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mscreenName\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mbaseName\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mclassName\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0minteractive\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mwantobjects\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0museTk\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msync\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0muse\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2303\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0museTk\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2304\u001b[0m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_loadtk\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mTclError\u001b[0m: no display name and no $DISPLAY environment variable"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Te damos la bienvenida a Colaboratory",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
